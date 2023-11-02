@@ -56,6 +56,7 @@ void main()
 		new = 500;
 		char znak;
 		do {
+			k++;
 			printf("Компьютер предположил что ваше число: %d\n", new);
 			printf("Введите >, < или =\n");
 			scanf("%*c%c", &znak);
@@ -71,8 +72,9 @@ void main()
 				old = temp;
 			}
 			else 
-				printf("Компьютер угадал число!");
+				printf("Компьютер угадал число!\n");
 		} while (znak != '=');
+		printf("Количество попыток: %d\n", k);
 	}
 	return 0;
 }
