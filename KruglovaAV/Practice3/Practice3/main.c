@@ -2,11 +2,23 @@
 #include <locale.h>
 #include<time.h>
 #include<stdlib.h>
+#define N 5
 
-int main() {
-	int n, i, j, chigrok, granica1 = 2, granica2 = 5, len=5;
-	int bull = 0, cow = 0;
-	int chisl1[] = { 0,0,0,0,0 }, chisl2[] = { 0,0,0,0,0 };
+int lench(int n) {
+	int l = 0;
+	do {
+		l++;
+		n /= 10;
+	} while (n);
+	return l;
+}
+
+
+
+void main() {
+	int n, i, j, chigrok, number, granica1 = 2, granica2 = 5, len=5;
+	int bull = 0, cow = 0, k=0;
+	int chisl1[N] = { 0 }, chisl2[N] = {0};
 	setlocale(LC_ALL, "Rus");
 	printf("Добро пожаловать в игру bulls&cows!\n");
 	do {
@@ -18,14 +30,12 @@ int main() {
 		}
 
 	} while ((n < granica1) || (n > granica2));
+	
 	srand((unsigned int)time(0));
-	for (i = 0; i <= n; i++){
-		if (i ==0){
-			chisl1[i] = 1 + rand() % (10 - 1);
-		}
-		chisl1[i] = rand() % 10;
-	}
-	for (i = 0; i < n; i++)
+	
+	chisl1[0] = 1 + rand() % 9;
+
+	for (i = 1; i < n; i++)
 	{
 		while (1)
 		{
@@ -43,7 +53,7 @@ int main() {
 		}
 	}
 
-	for (i=0; i< len; i++ )
+	for (i = 0; i< len; i++)
 		printf("%d", chisl1[i]);
 
 	do {
@@ -53,6 +63,11 @@ int main() {
 		do {
 			printf("Предположите какое число загадал компьютер:\n p.s цифры не повторяются\n ");
 			scanf("%d", &chigrok);
+			if (lench(chigrok) != n) 
+				printf("Повторите ввод\n");
+			else break;
+	
+
 		} while (1);
 		
 		for (i = n - 1 ; i >= 0; i --) {
@@ -62,10 +77,10 @@ int main() {
 		for (i = 0; i < n; i++) {
 			for (j = 0; j < n; j++) {
 				if (chisl2[i] == chisl1[j]) {
-					cow += 1;
+					cow ++;
 					if (i == j) {
-						bull += 1;
-						cow -= 1;
+						bull ++;
+						cow --;
 					}
 					break;
 				}
