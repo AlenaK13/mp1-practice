@@ -1,49 +1,62 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include "vector.h"
 #include <locale.h>
 
-void main()
+int main(int arg,char** argv[])
 {
-	setlocale(LC_ALL, "ru");
 	int n;
 	int c;
+	int f, n1 = 0, n2 = 0;
 	char operation;
-	TVector v1, v2, s;
-	printf("Lenght of v1 = \n");
+	TVector v1, v2, res;
+	setlocale(LC_ALL, "ru");
+	char* infilename, *outfilename;
+	if (arg < 4) {
+		printf("ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ðµ Ð°Ñ€Ð³ÑƒÐ¼ÐµÐ½Ñ‚Ñ‹\n");
+		return 1;
+	}
+	n = atoi(argv[1]);
+	printf("n = %d\n", n);
+	infilename = argv[2];
+	outfilename = argv[3];
+	
+	/*printf("Lenght of v1 = \n");
 	scanf("%d", &n);
 	allocate(&v1, n);
-	printf("Lenght of v2 = \n");
-	scanf("%d", &n);
-	allocate(&v2, n);
-	while ((c = getchar()) != '\n' && c != EOF) {}
 	fill(&v1);
-	while ((c = getchar()) != '\n' && c != EOF) {}
-	fill(&v2);
-
-	print(&v1);
-	print(&v2);
+	print(&v1);*/
+	read("Vector1.txt", &v1, &v2);
 	int working=1;
 	while (working){
-		printf("Âûáåðèòå îïåðàöèþ íàä âåêòîðàìè: \n1- ñëîæåíèå âåêòîðîâ 2- âû÷èòàíèå âåêòîðîâ 3- ñêàëÿðíîå ïðîèçâåäåíèå âåêòîðîâ 4- âûõîä\n");
-		while ((c = getchar()) != '\n' && c != EOF) {}
+		printf("Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸ÑŽ Ð½Ð°Ð´ Ð²ÐµÐºÑ‚Ð¾Ñ€Ð°Ð¼Ð¸: \n1- ÑÐ»Ð¾Ð¶ÐµÐ½Ð¸Ðµ Ð²ÐµÐºÑ‚Ð¾Ñ€Ð¾Ð² 2- Ð²Ñ‹Ñ‡Ð¸Ñ‚Ð°Ð½Ð¸Ðµ Ð²ÐµÐºÑ‚Ð¾Ñ€Ð¾Ð² 3- ÑÐºÐ°Ð»ÑÑ€Ð½Ð¾Ðµ Ð¿Ñ€Ð¾Ð¸Ð·Ð²ÐµÐ´ÐµÐ½Ð¸Ðµ Ð²ÐµÐºÑ‚Ð¾Ñ€Ð¾Ð² 4- Ð²Ñ‹Ñ…Ð¾Ð´\n");
+		while ((c = getchar()) != '\n' && c != EOF) {}//Ð¾Ñ‡Ð¸ÑÑ‚ÐºÐ° Ð±ÑƒÑ„ÐµÑ€Ð° Ð²Ð²Ð¾Ð´Ð°
 		scanf(" %c", &operation);
-		printf("%c", operation);
-		if(operation=='1'){
-			printf("1");
+		if(operation == '1'){
+			res = sum(&v1, &v2);
+			write("Vector1.txt", &res);
+			//print(&res);
 		}
 		else if(operation == '2'){
-			printf("2");
+			res = sub(&v1, &v2);
+			write("Vector1.txt", &res);
 		}
 		else if(operation == '3'){
-			printf("3");
+			res = prod(&v1, &v2);
+			write("Vector1.txt", &res);
 		}
 		else if(operation == '4'){
-			printf("4");
 			working=0;
 		}
 		else{
-			printf("íåêîððåêòíûé ââîä\n");
+			printf("ÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´\n");
 		}
 	}
-
+	free(v1.x);
+	free(v2.x);
+	if (res.x != NULL) 
+	{
+		free(res.x);
+	}
+	return ;
 }
+
